@@ -81,8 +81,10 @@ const AuthShowcase: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
-      {sessionData && <Chat username={sessionData?.user?.email}></Chat>}
-      <p>{sessionData ? userData?.id : "balls"}</p>
+      {sessionData && <Chat username={sessionData?.user?.name}></Chat>}
+      <p>{sessionData ? userData?.id: "balls"}</p>
+
+
       <p className="text-center text-2xl text-white">
         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
         {secretMessage && <span> - {secretMessage}</span>}
