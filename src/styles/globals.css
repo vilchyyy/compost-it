@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body{
+    min-height: 100vh;
+}
+/* html{
+    scroll-behavior: smooth;
+} */
+*{
+    box-sizing: border-box;
+}
