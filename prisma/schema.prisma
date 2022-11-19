@@ -68,6 +68,8 @@ model Chat {
 model Listing {
   id         String   @id @default(cuid())
   price      Decimal
+  weight     String
+  active     Boolean
   creationDate DateTime @default(now())
   imagePaths String[]
   owner      User     @relation(fields: [userId], references: [id])
@@ -78,9 +80,12 @@ model Listing {
 model User {
   id            String    @id @default(cuid())
   name          String?
+  lastName      String?
+  city          String?
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  phoneNumber   String?   
   accounts      Account[]
   sessions      Session[]
   listings      Listing[]

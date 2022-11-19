@@ -4,6 +4,7 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { trpc } from "../utils/trpc";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
@@ -58,14 +59,26 @@ export default Home;
 
 const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession();
-
+  const router = useRouter();
+  const { data: userData } = trpc.auth.getCurrUser.useQuery(
+    undefined,
+    { enabled: sessionData?.user !== undefined },)
   const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(
     undefined, // no input
     { enabled: sessionData?.user !== undefined },
   );
+  if (sessionData?.user?.name === null) {
+    console.log(userData)
+    router.push('/register')
+  }
+
+  
+
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
+      <p>{sessionData ? userData?.id: "balls"}</p>
+      
       <p className="text-center text-2xl text-white">
         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
         {secretMessage && <span> - {secretMessage}</span>}
@@ -74,6 +87,7 @@ const AuthShowcase: React.FC = () => {
         className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
         onClick={sessionData ? () => signOut() : () => signIn()}
       >
+        
         {sessionData ? "Sign out" : "Sign in"}
       </button>
     </div>
