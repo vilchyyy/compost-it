@@ -2,11 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 body{
-    min-height: 100vh;
+    min-height: 500vh;
 }
-/* html{
-    scroll-behavior: smooth;
-} */
 *{
     box-sizing: border-box;
 }
