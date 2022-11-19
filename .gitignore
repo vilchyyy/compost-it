@@ -41,6 +41,3 @@ yarn-error.log*
 *.tsbuildinfo
 
 /.history
-.env
-.env
-yarn.lock
