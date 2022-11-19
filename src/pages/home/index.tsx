@@ -6,7 +6,7 @@ import { SectionContainer } from "../../components/section/sectionContainer";
 import { SectionHeader } from "../../components/section/sectionHeader";
 import { SectionText } from "../../components/section/sectionText";
 export default function Home() {
-  const [activeSection, setActiveSection] = useState(0);
+  const [activeSection, setActiveSection] = useState<number>(0);
   const listElement = {
     hidden: { opacity: 0, translateY: 15 },
     show: {
@@ -68,7 +68,7 @@ export default function Home() {
         </motion.div>
       </div>
       <div className=" mx-auto mt-1 flex max-w-5xl">
-        <nav className="sticky top-0 h-full w-5/12 py-14 px-5" id="nav">
+        <nav className="sticky top-0 h-full w-4/12 py-14 px-5" id="nav">
           <motion.h2 className="ml-3 text-4xl" variants={listElement}>
             Kompostowanie
           </motion.h2>
@@ -81,110 +81,161 @@ export default function Home() {
           >
             {navItems.map((element, id) => {
               return (
-                <motion.li
-                  key={element}
-                  className={`relative rounded p-0 text-2xl font-medium 
-                  
-                  `}
-                  variants={listElement}
-                >
-                  <motion.div>
-                    {element}
-                    {activeSection === id + 1 ? (
-                      <motion.div
-                        className="absolute bottom-0  w-full border-2 border-green-400"
-                        layoutId="underline"
-                      />
-                    ) : null}
-                  </motion.div>
-                </motion.li>
+                <Link to={`section${id}`} smooth={true} duration={700}>
+                  <motion.li
+                    key={element}
+                    className="relative rounded p-0 text-2xl font-medium"
+                    variants={listElement}
+                  >
+                    <motion.div>
+                      {element}
+                      {activeSection === id ? (
+                        <motion.div
+                          className="absolute bottom-0  w-full border-2 border-green-400"
+                          layoutId="underline"
+                        />
+                      ) : null}
+                    </motion.div>
+                  </motion.li>
+                </Link>
               );
             })}
           </motion.ul>
         </nav>
-        <main className="w-7/12">
-          <SectionContainer setActiveSection={setActiveSection} id={1}>
+        <main className="w-8/12">
+          <SectionContainer setActiveSection={setActiveSection} id={0}>
             <SectionHeader> Czym jest kompostowanie?</SectionHeader>
             <SectionText>
-              Kompostowanie to przetwarzanie materii organicznej na kompost w
-              drodze naturalnych procesów biochemicznych procesy z udziałem
-              mikroorganizmów. W państwach członkowskich UE posiadanie domu
-              Kompostownik jest popularny, staje się zauważalnym trendem również
-              w Polsce, ponieważ jest to świetny sposób produkować kompost –
-              cenny materiał do nawożenia gleby, a także sposób gospodarowania
-              odpady organiczne (bio), wytwarzane każdego dnia w naszych domach
-              i ogrodach.
+              Kompostowanie to przetwarzanie materii organicznej w kompost w
+              toku naturalnych procesów biochemicznych z udziałem
+              mikroorganizmów. W krajach Unii Europejskiej posiadanie
+              przydomowego kompostownika jest popularne, a w Polsce również
+              staje się zauważalnym trendem, gdyż jest to świetny sposób na
+              produkcję tego cennego materiału do użyźniania gleby, a także
+              sposób na zagospodarowanie odpady organiczne (bio), powstające
+              każdego dnia w naszych domach i ogrodach.
+            </SectionText>
+          </SectionContainer>
+          <SectionContainer setActiveSection={setActiveSection} id={1}>
+            <SectionHeader> Dlaczego kompostowanie jest ważne </SectionHeader>
+            <SectionText>
+              Dzięki niemu ograniczamy ilość wytwarzanych odpadów oraz koszty
+              ich transportu i zagospodarowania w instalacjach Zmniejsza ilość
+              metanu powstającego na składowiskach w wyniku rozkładających się
+              odpadów, który dostając się do atmosfery powoduje globalne
+              ocieplenie Pozwala nam uzyskać naturalny i darmowy nawóz, który
+              jest bezpieczny dla ludzi i środowiska środowiska - stosowanie go
+              sprawia, że rośliny ogrodowe lepiej się rozwijają, zwiększając
+              plony warzyw; ponadto kompost ogranicza emisję zanieczyszczeń do
+              atmosfery. warzyw; ponadto kompost ogranicza rozwój chwastów i
+              pomaga glebie utrzymać wilgoć, pomagając tym samym przetrwać
+              pojawiające się coraz częściej okresy suszy. Samodzielne
+              wytwarzanie kompostu jest łatwe i nie wymaga specjalistycznej
+              wiedzy, natomiast założenie kompostownika jest możliwe nie tylko w
+              ogrodzie, ale także w domu lub na balkonie. Kompostownik można w
+              łatwy sposób zbudować samodzielnie lub też możemy kupić gotową
+              konstrukcję.
             </SectionText>
           </SectionContainer>
           <SectionContainer setActiveSection={setActiveSection} id={2}>
-            <SectionHeader> Dlaczego kompostowanie jest ważne </SectionHeader>
+            <SectionHeader> Zalety</SectionHeader>
             <SectionText>
-              Kompostowanie odpadów pozwala nam chronić środowisko, ponieważ: 1
-              <br />- zmniejszamy ilość wytwarzanych odpadów oraz koszty ich
-              transportu i zagospodarowania w instalacjach – aktywne wdrażanie
-              zasady „zero odpadów”,
-              <br />- zmniejszamy ilość metanu powstającego na składowiskach w
-              wyniku rozkładu odpadów, co powoduje globalne ocieplenie
-              przedostając się do atmosfery, <br />- pozwala nam uzyskać
-              naturalny i darmowy nawóz, który jest bezpieczny dla ludzi i
-              środowiska środowisko – korzystanie z niego sprawia, że ​​rośliny
-              ogrodowe lepiej rosną, co zwiększa plony warzywa; ponadto kompost
-              ogranicza rozwój chwastów i wspomaga glebę utrzymują wilgoć,
-              pomagając w ten sposób przetrwać okresy suszy, które występują
-              coraz częściej częściej.
+              <ul className="list-disc marker:text-green-600">
+                <li>Kompost może posłużyć nam jako tani i skuteczny nawóz.</li>
+                <li>
+                  Zmniejszenie ogólnej ilości bioodpadów i kosztów ich
+                  przetwarzania przez zakłady komunalne.
+                </li>
+                <li>Niższe opłaty za wywóz śmieci.</li>
+                <li>
+                  Prosta technologia do zastosowania przez każdego mieszkańca
+                </li>
+                <li>
+                  Bardzo niski koszt inwestycyjny i brak dodatkowych wydatków z
+                  czasem.
+                </li>
+              </ul>
             </SectionText>
           </SectionContainer>
           <SectionContainer setActiveSection={setActiveSection} id={3}>
-            <SectionHeader> Zalety</SectionHeader>
+            <SectionHeader> Co można kompostować</SectionHeader>
             <SectionText>
-              - wytwarzanie kompostu, który służy jako wartościowy nawóz, -
-              zmniejszenie ogólnej ilości bioodpadów i kosztów ich przetwarzania
-              przez instalacje, <br /> - niższa opłata za odbiór odpadów
-              komunalnych, <br />- prosta technologia dostępna dla każdego
-              obywatela,
-              <br />- niski koszt inwestycji i brak nakładów bieżących
+              <ul className="list-disc marker:text-green-600">
+                <li>
+                  odpady kuchenne:
+                  <ul className="ml-8 list-disc text-left marker:text-green-800">
+                    <li>obierki, resztki warzyw i owoców, skorupki jaj</li>
+                    <li>fusy z kawy/herbaty</li>
+                    <li>czerstwe pieczywo</li>
+                    <li>liście, kiełki, części roślin</li>
+                    <li>skoszoną trawe, kore drzew i drobne gałęzie</li>
+                  </ul>
+                </li>
+                <li>zwiędłe kwiaty i rośliny doniczkowe</li>
+
+                <li>
+                  miękki papier/karton (np. papier do pakowania żywności,
+                  chusteczki higieniczne, ręczniki papierowe).
+                </li>
+              </ul>
             </SectionText>
           </SectionContainer>
           <SectionContainer setActiveSection={setActiveSection} id={4}>
-            <SectionHeader> Co można kompostować</SectionHeader>
-            <SectionText>
-              Co można kompostować:
-              <br />- odpady kuchenne, np. obierki, resztki warzyw i owoców,
-              skorupki jaj, kawa/herbata fusy, czerstwy chleb,
-              <br />- liście, kiełki, łodygi roślin,
-              <br />- skoszona trawa,
-              <br />- kora drzew i drobne gałęzie, siano,
-              <br />- zwiędłych kwiatów i roślin doniczkowych,
-              <br />- niezadrukowany i miękki papier/karton (np. papier do
-              pakowania żywności, chusteczek, ręczników papierowych)
-            </SectionText>
-          </SectionContainer>
-          <SectionContainer setActiveSection={setActiveSection} id={5}>
             <SectionHeader> Czego nie można kompostować</SectionHeader>
             <SectionText>
-              Czego nie należy umieszczać w kompostowniku:
-              <br />- materiały takie jak ceramika, tworzywa sztuczne, metale,
-              szkło czy tkaniny – nie są kompostowane,
-              <br />- materia organiczna, która może zawierać chemikalia, taka
-              jak zadrukowany papier lub gazety, pusta kartonowe opakowania
-              napojowe, drewno malowane i impregnowane,
-              <br />- odpady kuchenne, takie jak mięso, kości, tłuszcz, nabiał
-              lub całe jajka, które wydzielają nieprzyjemny zapach podczas
-              rozkładu,
-              <br />- odchody zwierzęce, żwirek dla kotów (ze względów
-              sanitarnych),
-              <br />- zepsute jedzenie,
-              <br />- ziemia, żwir, kamienie, 2
-              <br />- części chorych roślin lub rośliny zaatakowane przez
-              pasożyty (zarodniki grzybów lub jaja pasożytów może przetrwać
-              proces kompostowania i zostać ponownie wprowadzony do gleby)
-              <br />- chwasty, które stworzyły nasiona (nasiona przetrwają w
-              kompoście i wykiełkują gleba pokryta kompostem)
-              <br />- grube gałęzie i igły sosnowe – długo się rozkładają,
-              wydłużając czas potrzebne do wytworzenia kompostu,
-              <br />- odpady pochodzenia roślinnego, które mogą być skażone, np.
-              chwasty środkami ochrony roślin lub skórki z owoców cytrusowych,
-              które zawierają konserwanty.
+              <ul className="list-disc marker:text-green-600">
+                <li>
+                  Materiałów takich jak:
+                  <ul className="ml-8 list-disc text-left marker:text-green-800">
+                    <li>ceramika</li>
+                    <li>tworzywa sztuczne</li>
+                    <li>metale</li>
+                    <li>szkło</li>
+                    <li>tkaniny</li>
+                  </ul>
+                </li>
+                <li>
+                  materii organicznej, która może zawierać substancje chemiczne:
+                  <ul className="ml-8 list-disc text-left marker:text-green-800">
+                    <li>zadrukowany papier</li>
+                    <li>gazety</li>
+                    <li>puste kartonowe opakowania po napojach</li>
+                    <li>pomalowane lub zaimpregnowane drewno</li>
+                  </ul>
+                </li>
+                <li>
+                  odpady kuchenne:
+                  <ul className="ml-8 list-disc text-left marker:text-green-800">
+                    <li>mięso</li>
+                    <li>kości</li>
+                    <li>tłuszcz</li>
+                    <li>nabiał</li>
+                    <li>całe jaja</li>
+                  </ul>
+                </li>
+                <li>odchody zwierząt</li>
+                <li>żwirki dla kotów (ze względów sanitarnych)</li>
+                <li>zepsute jedzenie</li>
+                <li>gleba, żwir, kamienie</li>
+                <li>
+                  części chorych lub zaatakowanych przez pasożyty roślin
+                  (zarodniki grzybów lub jaja pasożytów mogą przetrwać proces
+                  kompostowania i zostać ponownie wprowadzone do gleby)
+                </li>
+                <li>
+                  chwasty, które wytworzyły nasiona (nasiona przetrwają w
+                  kompoście i wykiełkują w glebie pokrytej kompostem){" "}
+                </li>
+                <li>
+                  grube gałęzie i igły sosnowe - długo się rozkładają,
+                  wydłużając czas potrzebny do wytworzenia kompostu
+                </li>
+                <li>
+                  odpady pochodzenia roślinnego, które mogą być zanieczyszczone,
+                  np. chwasty ze środkami ochrony roślin czy skórki z owoców
+                  cytrusowych, które zawierają środki konserwujące
+                </li>
+              </ul>
             </SectionText>
           </SectionContainer>
         </main>

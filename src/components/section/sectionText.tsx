@@ -3,5 +3,9 @@ interface sectionProps {
 }
 
 export const SectionText = ({ children }: sectionProps) => {
-  return <h3 className="  text-xl font-normal">{children}</h3>;
+  return (
+    <h3 className="  text-justify text-2xl font-normal leading-relaxed tracking-wide text-gray-900">
+      {children}
+    </h3>
+  );
 };
