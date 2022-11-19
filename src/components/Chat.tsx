@@ -3,18 +3,18 @@ import axios from "axios"
 import { useState, useEffect } from "react"
 
 export default function Chat({username}){
-    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
-        cluster: "eu",
-        authEndpoint: "api/pusher/auth",
-        auth: {params: {username}}
-    })
-
+    
     const [chats, setChats] = useState([])
     const [message, setMessage] = useState("")
     
     useEffect(() =>{
+        const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
+            cluster: "eu",
+            authEndpoint: "api/pusher/auth",
+            auth: {params: {username}}
+        })
         const channel = pusher.subscribe("presence-channel");
-
+        console.log("chuj")
         channel.bind("chat-update", (data) => {
             const {message, username} = data
             setChats((prevstate) => [
@@ -24,7 +24,7 @@ export default function Chat({username}){
         })
 
         return (() => {
-            channel.unsubscribe("presence-channel")
+            pusher.unsubscribe("presence-channel")
         })
 
     },[])
@@ -37,7 +37,8 @@ export default function Chat({username}){
     }
 
     return (
-        <div className="bg-white w-8/12 border-4 border-gray-800 rounded-md">
+    <div className="relative w-8/12">
+        <div className="bg-white w-full border-4 border-gray-800 rounded-md h-80 overflow-scroll">
             {chats.map((chat, id) => {
                 if(username === chat.username){
                 return (<div className={" mx-2 flex justify-end items-baseline "} key={id}>
@@ -51,10 +52,13 @@ export default function Chat({username}){
                 </div>)
                 }
             })}
-            <form onSubmit={handleSubmit}>
-                <input className="border-4 w-full" type="text" onChange={e=> setMessage(e.target.value)} placeholder="Write a message"></input>
-            </form>
-           
+            
         </div>
+        <form onSubmit={handleSubmit}>
+        <input  className="absolute bottom-0 border-4 w-full " type="text" onChange={e=> setMessage(e.target.value)} placeholder="Write a message"></input>
+        </form>
+        
+    </div>
+        
     )
 }
