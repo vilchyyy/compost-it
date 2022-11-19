@@ -8,7 +8,7 @@ import React from "react";
 
 export default function Navbar() {
     const { data: sessionData } = useSession();
-    function classNames(...classes) {
+    function classNames(...classes: string[]) {
         return classes.filter(Boolean).join(' ')
       }
     return (
