@@ -2,12 +2,15 @@ import { useForm, UseFormProps } from "react-hook-form";
 import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { trpc } from "../../utils/trpc";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 
 export const validationSchema = z.object({
-    name: z.string(),
-    lastName: z.string(),
-    phoneNumber: z.string(),
-    city: z.string(),
+    name: z.string().min(1, { message: "Pole nie może być puste."}).max(30, { message: "Pole może mieć maksymalnie 30 znaków"}),
+    lastName: z.string().min(1, { message: "Pole nie może być puste."}).max(30, { message: "Pole może mieć maksymalnie 30 znaków"}),
+    phoneNumber: z.string().min(9, { message: "Nieodpowiedni format numeru telefonu "}).max(15, { message: "Nieodpowiedni format numeru telefonu"}).trim(),
+    city: z.string().min(1, { message: "Pole nie może być puste."}).max(30, { message: "Pole może mieć maksymalnie 30 znaków"}),
 });
 
 function useZodForm<TSchema extends z.ZodType>(
@@ -16,7 +19,7 @@ function useZodForm<TSchema extends z.ZodType>(
     },
   ) {
     const form = useForm<TSchema['_input']>({
-      ...props,
+      ...props, 
       resolver: zodResolver(props.schema, undefined),
     });
   
@@ -24,11 +27,19 @@ function useZodForm<TSchema extends z.ZodType>(
   }
   
 
-export default function Index() {
+const Index: React.FC = () => {    
+    const { data: sessionData } = useSession();
+    const router = useRouter();
+    useEffect(()=> {
+        if (sessionData?.user?.name !== null) {
+          //  router.push('/home')
+        }
+    },[])
 
-    const mutation = trpc.register.fillMissingData.useMutation()
 
-    const methods = useZodForm({
+      const mutation = trpc.register.fillMissingData.useMutation()
+
+    const { register, handleSubmit, reset, formState: {errors} } = useZodForm({
         schema: validationSchema,
         defaultValues: {
           name: '',
@@ -42,19 +53,26 @@ export default function Index() {
     <>
       <h1>Uzupełnij kilka danych bam</h1>
       <form
-        onSubmit={methods.handleSubmit(async (values) => {
+        onSubmit={handleSubmit(async (values) => {
             await mutation.mutate(values)
-          methods.reset();
+          reset();
+          //router.push('/home')
         })}
         className="space-y-2"
       >
-        <input {...methods.register("name")} placeholder="imię"/>
-        <input {...methods.register("lastName")} placeholder="Nazwisko"/>
-        <input {...methods.register("phoneNumber")} placeholder="Numer Telefonu"/>
-        <input {...methods.register("city")} placeholder="Miejscowość"/>
+        <input {...register("name")} placeholder="imię"/>
+        {errors.name && errors.name.message}
+        <input {...register("lastName")} placeholder="Nazwisko"/>
+        {errors.lastName && errors.lastName.message}
+        <input {...register("phoneNumber")} placeholder="Numer Telefonu"/>
+        {errors.phoneNumber && errors.phoneNumber.message}
+        <input {...register("city")} placeholder="Miejscowość"/>
+        {errors.city && errors.city.message}
         <input type="submit" />
 
       </form>
     </>
   );
 }
+
+export default Index;

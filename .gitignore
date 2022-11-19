@@ -43,3 +43,4 @@ yarn-error.log*
 /.history
 .env
 .env
+yarn.lock
