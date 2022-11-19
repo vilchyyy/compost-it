@@ -37,15 +37,22 @@ export default function Chat({username}){
     }
 
     return (
-        <div>
-            Hi {username}
+        <div className="bg-white w-8/12 border-4 border-gray-800 rounded-md">
             {chats.map((chat, id) => {
-                return (<div key={id}>
-                    {chat.message}
+                if(username === chat.username){
+                return (<div className={" mx-2 flex justify-end items-baseline "} key={id}>
+                    <span className="text-sm">Time</span>
+                    <span className="bg-green-600 w-6/12 text-sm break-all rounded-lg p-2 m-2">{chat.username}: {chat.message}</span>
                 </div>)
+                }else{
+                    return (<div className={"mx-2 flex justify-start items-baseline"} key={id}>
+                    <span className="bg-blue-800 w-6/12 text-sm break-all rounded-lg p-2 m-2">{chat.username}: {chat.message}</span>
+                    <span className="text-sm">Time</span>
+                </div>)
+                }
             })}
             <form onSubmit={handleSubmit}>
-                <input type="text" onChange={e=> setMessage(e.target.value)} placeholder="aaaa"></input>
+                <input className="border-4 w-full" type="text" onChange={e=> setMessage(e.target.value)} placeholder="Write a message"></input>
             </form>
            
         </div>
