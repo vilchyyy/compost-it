@@ -72,7 +72,6 @@ const AuthShowcase: React.FC = () => {
     { enabled: sessionData?.user !== undefined },
   );
   if (sessionData?.user?.name === null) {
-    console.log(userData)
     router.push('/register')
   }
 

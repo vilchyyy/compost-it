@@ -2,6 +2,9 @@ import { useForm, UseFormProps } from "react-hook-form";
 import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { trpc } from "../../utils/trpc";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 
 export const validationSchema = z.object({
     name: z.string(),
@@ -24,9 +27,18 @@ function useZodForm<TSchema extends z.ZodType>(
   }
   
 
-export default function Index() {
+const Index: React.FC = () => {    
+    const { data: sessionData } = useSession();
+    const router = useRouter();
+    let refresher = 0;
+    useEffect(()=> {
+        if (sessionData?.user?.name !== null) {
+            router.push('/home')
+        }
+    },[refresher])
 
-    const mutation = trpc.register.fillMissingData.useMutation()
+
+      const mutation = trpc.register.fillMissingData.useMutation()
 
     const methods = useZodForm({
         schema: validationSchema,
@@ -45,6 +57,7 @@ export default function Index() {
         onSubmit={methods.handleSubmit(async (values) => {
             await mutation.mutate(values)
           methods.reset();
+          router.push('/')
         })}
         className="space-y-2"
       >
@@ -58,3 +71,5 @@ export default function Index() {
     </>
   );
 }
+
+export default Index;
