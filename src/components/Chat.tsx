@@ -1,28 +1,37 @@
+import React from "react"
 import Pusher from "pusher-js"
 import axios from "axios"
 import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 
+interface data {
+    message: string,
+    username: string,
+    time: string
+}
+interface props {
+    username: string
+}
 
-export default function Chat({username}){
+export default function Chat({ username }:props){
     
-    const [chats, setChats] = useState([])
+    const [chats, setChats] = useState<data[]>([])
     const [message, setMessage] = useState("")
     const [chatOpen, setChatOpen] = useState(false)
 
-    const bottomRef = useRef(null);
+    const bottomRef = useRef<any>(null);
 
     useEffect(() =>{
-        const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
+        const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY ?? "", {
             cluster: "eu",
             authEndpoint: "api/pusher/auth",
             auth: {params: {username}}
         })
         const channel = pusher.subscribe("presence-channel");
         console.log("chuj")
-        channel.bind("chat-update", (data) => {
+        channel.bind("chat-update", (data: data) => {
             const {message, username, time} = data
-            setChats((prevstate) => [
+            setChats((prevstate: data[]) => [
                 ...prevstate,
                 {username, message, time}
             ])
@@ -34,9 +43,9 @@ export default function Chat({username}){
 
     },[])
     useEffect(() =>{
-        bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+        bottomRef?.current?.scrollIntoView({behavior: 'smooth'});
     }, [chats])
-    const handleSubmit = async(e) => {
+    const handleSubmit = async(e: any) => {
         e.preventDefault()
         let date = new Date()
         let hour = date.getHours()>9?date.getHours().toString():"0"+date.getHours().toString()

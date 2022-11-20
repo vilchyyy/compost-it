@@ -45,7 +45,7 @@ const Index: React.FC = () => {
   const router = useRouter();
   useEffect(() => {
     if (sessionData?.user?.name !== null) {
-      //  router.push('/home')
+      router.push('/home')
     }
   }, []);
 
