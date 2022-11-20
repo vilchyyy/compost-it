@@ -2,9 +2,9 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
-import Chat from "../components/Chat.tsx";
-
-import ProductCard from "../components/products/ProductListing.jsx";
+import Chat from "../components/Chat";
+import React, { useState } from "react";
+import ProductCard from "../components/ProductCard.jsx";
 
 import { trpc } from "../utils/trpc";
 
@@ -12,8 +12,29 @@ import { trpc } from "../utils/trpc";
 
 import { useRouter } from "next/router";
 
+import { S3Client } from "@aws-sdk/client-s3";
+import { ListBucketsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
+
+const credentials = {
+  accessKeyId: "LfTlPaILdwOGcyyH",
+  secretAccessKey: "H8vEZ8zEA633ZjtkjO1jg7YG9dS3SrjJUHmId46J"
+};
+
+const s3Client = new S3Client({
+  endpoint: "https://s3.tebi.io",
+  credentials: credentials,
+  region: "global"
+});
+
 const Home: NextPage = () => {
+  const [fileName, setFileName] = useState("")
+  const [file, setFile] = useState<any>()
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
+  
+console.log(credentials)
+
+// Create an S3 service client object.
+
 
   return (
     <>
@@ -25,6 +46,26 @@ const Home: NextPage = () => {
 
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         {/* <Input label="Testing" /> */}
+        <form onSubmit={async (e) => {
+          e.preventDefault()
+          // Upload a file
+          const upload_data = await s3Client.send(
+            new PutObjectCommand({
+            Bucket: "compostovnik",
+            Key: file.name,
+            Body: file
+            })
+);
+console.log(upload_data);
+        }}>
+          <input type="file" onChange={(e) => {
+            if (!e.target.files) return;
+            setFile(e.target.files[0])
+            }}/>
+            <button type="submit"> aaaa</button>
+        </form>
+        
+
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
             Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
