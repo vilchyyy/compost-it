@@ -5,10 +5,12 @@ import { SortBy } from "../../components/marketSettings/SortBy";
 import { useState, useEffect } from "react";
 import { trpc } from "../../utils/trpc";
 import Chat from "../../components/Chat"
+import { useSession } from "next-auth/react";
 
 export default function Market() {
   const [sort, setSort] = useState("priceBot");
   const [sortedProducts, setSortedProducts] = useState<any>([]);
+  const {data: sessionData} = useSession();
   const { data: listingsData } =
     trpc.listing.getAllListings.useQuery(undefined);
   useEffect(() => {
@@ -69,7 +71,7 @@ export default function Market() {
         </div>
       </div>
     </div>
-    <div className="fixed bottom-0 right-0 w-4/12 float-right"><Chat username={sessionData?.user?.name}/></div>
+    <div className="fixed bottom-0 right-0 w-4/12 float-right"><Chat username={sessionData?.user?.name?? 'balls'}/></div>
     </>
     
   );

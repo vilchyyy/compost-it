@@ -18,16 +18,6 @@ export const authOptions: NextAuthOptions = {
         session.user.id = user.id;
       }
       return session;
-    },
-    async signIn({ user, account, profile, email, credentials }) {
-      console.log(user, account, profile, email, credentials)
-      return true
-    },
-    async redirect({ url, baseUrl }) {
-      return baseUrl
-    },
-    async jwt({ token, user, account, profile, isNewUser }) {
-      return token
     }
   },
   

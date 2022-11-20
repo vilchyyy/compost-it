@@ -12,6 +12,11 @@ import { useRouter } from "next/router";
 export default function Home() {
   const session = useSession();
   const router = useRouter();
+
+  if (session.data?.user?.name === null) {
+    console.log("benc");
+    router.push("/register");
+  }
   const [activeSection, setActiveSection] = useState<number>(0);
   console.log(ScrollElement);
   const listElement = {
@@ -52,11 +57,13 @@ export default function Home() {
       },
     },
   };
+
   useEffect(() => {
     if (session.data?.user && !session.data.user.name) {
       router.push("/register");
     }
   }, []);
+
   useEffect(() => {
     console.log(activeSection);
   }, [activeSection]);
