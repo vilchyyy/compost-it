@@ -122,12 +122,11 @@ const Index: React.FC = () => {
             </p>
           </div>
 
-          <button
-            className="rounded-lg  border-2 border-green-500 p-2 px-8"
+          <input
+            className="rounded-lg  border-2 border-green-500 p-2 px-8 font-bold"
             type="submit"
-          >
-            <p className="font-bold">Prześlij</p>
-          </button>
+            value="Prześlij"
+          />
         </form>
       </div>
     </div>

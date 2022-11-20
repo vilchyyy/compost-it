@@ -3,7 +3,12 @@
 @tailwind utilities;
 body{
     min-height: 100vh;
+    min-width: 350px;
+
 }
 *{
     box-sizing: border-box;
+}
+#sortbox:checked ~ #sortboxmenu {
+    opacity: 1;
 }
