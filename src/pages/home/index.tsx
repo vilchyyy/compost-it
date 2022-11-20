@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { Link } from "react-scroll";
+import { Link, ScrollElement } from "react-scroll";
 import { SectionContainer } from "../../components/section/sectionContainer";
 import { SectionHeader } from "../../components/section/sectionHeader";
 import { SectionText } from "../../components/section/sectionText";
 export default function Home() {
   const [activeSection, setActiveSection] = useState<number>(0);
+  console.log(ScrollElement);
   const listElement = {
     hidden: { opacity: 0, translateY: 15 },
     show: {
