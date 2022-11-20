@@ -44,7 +44,9 @@ export const SortBy = ({ setSort }: sortByProps) => {
             <li>
               <p
                 onClick={() => {
-                  if(ref){ref.current.checked = false}
+                  if (ref) {
+                    ref.current.checked = false;
+                  }
                   setSort("newest");
                 }}
                 className="block cursor-pointer px-3 py-2 hover:bg-gray-200"
@@ -60,7 +62,7 @@ export const SortBy = ({ setSort }: sortByProps) => {
                 }}
                 className="block cursor-pointer px-3 py-2 hover:bg-gray-200"
               >
-                Cena: Rosnąco
+                Cena: Malejąco
               </p>
             </li>
             <li>
@@ -71,7 +73,7 @@ export const SortBy = ({ setSort }: sortByProps) => {
                 }}
                 className="block cursor-pointer px-3 py-2 hover:bg-gray-200"
               >
-                Cena: Malejąco
+                Cena: Rosnąco
               </p>
             </li>
           </ul>
