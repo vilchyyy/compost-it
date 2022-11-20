@@ -20,7 +20,7 @@ export function ProductCard({
   id,
 }: productProps) {
   return (
-    <div className=" m-2 flex w-64 flex-col items-center rounded-lg border-2 bg-neutral-100 shadow-md">
+    <div className=" m-2  flex w-64 flex-col items-center rounded-lg border-2 bg-neutral-100 shadow-md">
       <Image
         className="rounded-xl object-contain transition-transform duration-300 ease-in-out hover:scale-105"
         width={200}
@@ -41,7 +41,7 @@ export function ProductCard({
           </p>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-gray-900">{price}</span>
+          <span className="text-2xl font-bold text-gray-900">{price} zł</span>
           <Link
             href={`/listing/${id}`}
             className="rounded-lg bg-blue-700 px-5 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

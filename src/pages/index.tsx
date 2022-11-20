@@ -107,7 +107,12 @@ export default function Home() {
           >
             {navItems.map((element, id) => {
               return (
-                <Link key={element} to={`section${id}`} smooth={true} duration={700}>
+                <Link
+                  key={element}
+                  to={`section${id}`}
+                  smooth={true}
+                  duration={700}
+                >
                   <motion.li
                     key={element}
                     className="relative rounded p-0 text-2xl font-medium"
@@ -268,16 +273,32 @@ export default function Home() {
             <SectionHeader> Skąd wziąć kompost?</SectionHeader>
             <SectionText>
               Jeżeli chciałbyś mieć kompost lub chciałbyś się go pozbyć zajrzyj
-              do naszego sklepu
+              na nasz rynek.
               <NextLink href="/market" className="flex place-content-center">
                 <motion.div
                   initial={"hidden"}
                   whileInView={"show"}
+                  whileHover={"hover"}
                   viewport={{ once: true }}
                   variants={buttonVariants}
-                  className="mt-10 flex w-28 place-content-center rounded-full bg-green-500 py-2.5 px-5 font-bold text-white "
                 >
-                  Sklep
+                  <motion.div
+                    whileHover={{
+                      opacity: 1,
+                      rotate: "-5deg",
+                      backgroundColor: "rgb(62 244 129)",
+                      translateY: -3,
+                      scale: 1.05,
+                      transition: {
+                        rotate: {
+                          duration: 0.3,
+                        },
+                      },
+                    }}
+                    className="mt-10 flex w-28 place-content-center rounded-full bg-green-500 py-2.5 px-5 font-bold text-white "
+                  >
+                    Rynek
+                  </motion.div>
                 </motion.div>
               </NextLink>
             </SectionText>

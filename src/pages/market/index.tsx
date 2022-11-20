@@ -44,11 +44,11 @@ export default function Market() {
   console.log(sortedProducts, listingsData);
 
   return (
-    <>
-    <div className="">
+  <>
+    <div className="h-full">
       <Navbar />
       <div className="md:flex">
-        <div className="min-w-min border-r-2 border-neutral-200 shadow-lg shadow-neutral-200">
+        <div className="min-h-full min-w-min border-r-2 border-neutral-200 shadow-lg shadow-neutral-200">
           <div className="flex w-full place-content-center md:w-64">
             <SortBy setSort={setSort} />
           </div>
