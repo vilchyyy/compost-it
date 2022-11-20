@@ -8,7 +8,11 @@ import NextCors from "nextjs-cors"
 
 const handler = async (req: NextApiRequest, res: NextApiResponse)=>{
 
-  req.headers["access-control-allow-origin"]="*"
+  NextCors(req, res, {
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+      origin: '*',
+  })
+ req.headers["access-control-allow-origin"]="*"
 
 return createNextApiHandler({
   router: appRouter,

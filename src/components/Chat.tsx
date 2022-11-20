@@ -34,6 +34,7 @@ export default function Chat({username}){
             message, 
             username
         })
+        setMessage("")
     }
 
     return (
@@ -55,7 +56,7 @@ export default function Chat({username}){
             
         </div>
         <form onSubmit={handleSubmit}>
-        <input  className="absolute bottom-0 border-4 w-full " type="text" onChange={e=> setMessage(e.target.value)} placeholder="Write a message"></input>
+        <input  className="absolute bottom-0 border-4 w-full " type="text" value ={message} onChange={e=> setMessage(e.target.value)} placeholder="Write a message"></input>
         </form>
         
     </div>
