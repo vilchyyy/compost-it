@@ -3,18 +3,43 @@ import Navbar from "../../components/Navbar";
 import { ProductCard } from "../../components/products/ProductCard";
 import { SortBy } from "../../components/marketSettings/SortBy";
 import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
+import { trpc } from "../../utils/trpc";
 import Chat from "../../components/Chat"
 
-
 export default function Market() {
-  const [sort, setSort] = useState("newest");
-  const { data: sessionData } = useSession();
+  const [sort, setSort] = useState("priceBot");
+  const [sortedProducts, setSortedProducts] = useState<any>([]);
+  const { data: listingsData } =
+    trpc.listing.getAllListings.useQuery(undefined);
   useEffect(() => {
-    if (sessionData?.user?.name !== null) {
-      //  router.push('/home')
+    console.log(listingsData);
+    if (listingsData) {
+      if (sort === "newest") {
+        const newArray = [...listingsData];
+        setSortedProducts(() => {
+          return newArray.sort((a, b) => {
+            return a.creationDate > b.creationDate ? -1 : 1;
+          });
+        });
+      } else if (sort === "priceTop") {
+        const newArray = [...listingsData];
+        setSortedProducts(() => {
+          return newArray.sort((a, b) => {
+            return Number(a.price) > Number(b.price) ? -1 : 1;
+          });
+        });
+      } else if (sort === "priceBot") {
+        const newArray = [...listingsData];
+        setSortedProducts(() => {
+          return newArray.sort((a, b) => {
+            return Number(a.price) < Number(b.price) ? -1 : 1;
+          });
+        });
+      }
     }
-  }, []);
+  }, [sort, listingsData]);
+
+  console.log(sortedProducts, listingsData);
 
   return (
     <>
@@ -27,46 +52,20 @@ export default function Market() {
           </div>
         </div>
         <div className="flex grow flex-wrap place-content-center">
-          <ProductCard
-            image="/coompost.png"
-            name="Kompost świeży świeży 5 świeży 5 świeży 5 5kg"
-            price="12.00zl"
-            seller="Radzisklep"
-            city="J-Bie"
-            weight="5kg"
-          />
-          <ProductCard
-            image="/coompost.png"
-            name="Kompost"
-            price="12.00zl"
-            seller="Radzisklep"
-            city="J-Bie"
-            weight="5kg"
-          />
-          <ProductCard
-            image="/coompost.png"
-            name="aaa"
-            price="12.00zl"
-            seller="Radzisklep"
-            city="J-Bie"
-            weight="5kg"
-          />
-          <ProductCard
-            image="/coompost.png"
-            name="aaa"
-            price="12.00zl"
-            seller="Radzisklep"
-            city="J-Bie"
-            weight="5kg"
-          />
-          <ProductCard
-            image="/coompost.png"
-            name="aaa"
-            price="12.00zl"
-            seller="Radzisklep"
-            city="J-Bie"
-            weight="5kg"
-          />
+          {sortedProducts?.map((listing) => {
+            return (
+              <ProductCard
+                key={listing.id}
+                id={listing.id}
+                city={listing.owner.city ?? ""}
+                image="/coompost.png"
+                name={listing.name}
+                price={String(listing.price)}
+                weight={listing.weight}
+                seller={listing.owner.name ?? ""}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
