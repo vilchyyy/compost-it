@@ -5,7 +5,7 @@ import { trpc } from "../../utils/trpc";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import Input from "../../components/Input";
+
 
 export const validationSchema = z.object({
   name: z
