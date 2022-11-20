@@ -30,6 +30,9 @@ export default function Index() {
               <p>{listingData?.owner.name}</p>
               <p>{listingData?.owner.phoneNumber}</p>
             </div>
+            <div>
+              <button>Otwórz Czat</button>
+            </div>
           </div>
         </div>
       )}
