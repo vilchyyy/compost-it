@@ -9,15 +9,14 @@ import NextLink from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-
 export default function Home() {
   const session = useSession();
   const router = useRouter();
 
-    if (session.data?.user?.name === null)  {
-      console.log('benc')
-      router.push('/register')
-    }
+  if (session.data?.user?.name === null) {
+    console.log("benc");
+    router.push("/register");
+  }
   const [activeSection, setActiveSection] = useState<number>(0);
   console.log(ScrollElement);
   const listElement = {
@@ -60,6 +59,12 @@ export default function Home() {
   };
 
   useEffect(() => {
+    if (session.data?.user && !session.data.user.name) {
+      router.push("/register");
+    }
+  }, []);
+
+  useEffect(() => {
     console.log(activeSection);
   }, [activeSection]);
   const navItems = [
@@ -73,7 +78,7 @@ export default function Home() {
 
   return (
     <div>
-      <div className="min-v-screen flex min-h-screen items-center justify-center bg-[url('https://images.unsplash.com/photo-1601788505117-18947ac4f2e6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80')] bg-cover bg-no-repeat">
+      <div className="min-v-screen backimg flex min-h-screen items-center justify-center bg-[url('https://images.unsplash.com/photo-1569880153113-76e33fc52d5f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80')] bg-cover bg-no-repeat">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

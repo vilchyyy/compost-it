@@ -16,13 +16,7 @@ export default async function handler(req, res){
             init_by: sender,
             receiver: receiver
         })
-        if(message){
-            await pusher.trigger(channels.sort().join("_"), "chat-update", {
-                message,
-                sender,
-                time
-            })
-        }
+        
     }
 
     
