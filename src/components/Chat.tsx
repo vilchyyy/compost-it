@@ -1,13 +1,15 @@
 import Pusher from "pusher-js"
 import axios from "axios"
 import { useState, useEffect, useRef } from "react"
+import { motion } from "framer-motion"
 
 
 export default function Chat({username}){
     
     const [chats, setChats] = useState([])
     const [message, setMessage] = useState("")
-    
+    const [chatOpen, setChatOpen] = useState(false)
+
     const bottomRef = useRef(null);
 
     useEffect(() =>{
@@ -33,7 +35,6 @@ export default function Chat({username}){
     },[])
     useEffect(() =>{
         bottomRef.current?.scrollIntoView({behavior: 'smooth'});
-        console.log(bottomRef)
     }, [chats])
     const handleSubmit = async(e) => {
         e.preventDefault()
@@ -50,8 +51,11 @@ export default function Chat({username}){
     }
 
     return (
-    <div className="relative flex-col w-8/12">
-        <div  className="bg-white w-full border-2 border-gray-800 rounded-lg h-80 overflow-x-hidden overflow-y-auto">
+    <div className="bg-white relative border-2 border-gray-800 rounded-xl flex-col w-8/12">
+        <div className="bg-green-500 w-full h-5 rounded-md flex items-center justify-end">
+            <button onClick={() => setChatOpen(!chatOpen)} className="border-2 border-gray-900 rounded-md h-5 w-5 text-4xl font-bold align-top"></button>
+        </div>
+        <motion.div animate={chatOpen ? {height: "20rem", opacity:1}:{height: 0, opacity: 0}}  className=" w-full   overflow-x-hidden overflow-y-auto">
             {chats.map((chat, id) => {
                 if(username === chat.username){
                 return (<div className={" mx-2 flex justify-end items-baseline "} key={id}>
@@ -66,10 +70,10 @@ export default function Chat({username}){
                 }
             })}
             <div ref={bottomRef} />
-        </div>
-        <form  className="h-4 flex items-center justify-center" onSubmit={handleSubmit}>
-            <input  className="absolute w-full  border-2 border-gray-800 rounded-md " type="text" value = {message} onChange={e=> setMessage(e.target.value)} placeholder="Write a message"></input>
-        </form>
+        </motion.div>
+        {(chatOpen && <form  className="h-4 mt-2 flex items-center justify-center" onSubmit={handleSubmit}>
+            <input  className="absolute w-full  border-2 border-gray-800 rounded-lg " type="text" value = {message} onChange={e=> setMessage(e.target.value)} placeholder="Write a message"></input>
+        </form>)}
         
     </div>
         
