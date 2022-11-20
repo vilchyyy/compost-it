@@ -4,7 +4,7 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Chat from "../components/Chat";
 import React, { useState } from "react";
-import ProductCard from "../components/ProductCard.jsx";
+
 
 import { trpc } from "../utils/trpc";
 
