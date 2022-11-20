@@ -71,7 +71,8 @@ export default function Chat({ username }:props){
     return (
     <div className="bg-white relative border border-gray-800 rounded-xl flex-col w-full">
         
-        <div className="bg-green-500 w-full h-10 border border-gray-900 rounded-lg flex items-center justify-end">
+        <div className="bg-green-500 w-full h-10 border border-gray-900 rounded-lg flex items-center justify-between">
+            <span className="ml-2 text-lg font-semibold">Chatroom</span>
             <button onClick={() => setChatOpen(!chatOpen)} className="border-2 border-gray-900 rounded-lg h-6 w-6 text-lg tracking-tighter leading-none text-top pb-2 font-bold mr-2">{chatOpen ? "X" : "^"}</button>
         </div>
         <motion.div animate={chatOpen ? {height: "20rem", opacity:1}:{height: 0, opacity: 0}}  className=" w-full   overflow-x-hidden overflow-y-auto">
@@ -90,7 +91,7 @@ export default function Chat({ username }:props){
             })}
             <div ref={bottomRef} />
         </motion.div>
-        {(chatOpen && <form  className="h-4 mt-2 flex items-center justify-center" onSubmit={handleSubmit}>
+        {(chatOpen && <form  className="h-6 mt-2 flex items-center justify-center" onSubmit={handleSubmit}>
             <input  className="absolute w-full  border px-1 border-gray-800 rounded-lg " type="text" value = {message} onChange={e=> setMessage(e.target.value)} placeholder="Write a message"></input>
         </form>)}
         
