@@ -5,6 +5,8 @@ import { Link, ScrollElement } from "react-scroll";
 import { SectionContainer } from "../components/section/sectionContainer";
 import { SectionHeader } from "../components/section/sectionHeader";
 import { SectionText } from "../components/section/sectionText";
+import NextLink from "next/link";
+
 export default function Home() {
   const [activeSection, setActiveSection] = useState<number>(0);
   console.log(ScrollElement);
@@ -36,6 +38,16 @@ export default function Home() {
       },
     },
   };
+  const buttonVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        delay: 0.4,
+        duration: 0.4,
+      },
+    },
+  };
   useEffect(() => {
     console.log(activeSection);
   }, [activeSection]);
@@ -45,6 +57,7 @@ export default function Home() {
     "Zalety",
     "Co można",
     "Co nie można",
+    "Skąd wziąć",
   ];
   return (
     <div>
@@ -239,10 +252,28 @@ export default function Home() {
               </ul>
             </SectionText>
           </SectionContainer>
+          <SectionContainer setActiveSection={setActiveSection} id={5}>
+            <SectionHeader> Skąd wziąć kompost?</SectionHeader>
+            <SectionText>
+              Jeżeli chciałbyś mieć kompost lub chciałbyś się go pozbyć zajrzyj
+              do naszego sklepu
+              <NextLink href="/market" className="flex place-content-center">
+                <motion.div
+                  initial={"hidden"}
+                  whileInView={"show"}
+                  viewport={{ once: true }}
+                  variants={buttonVariants}
+                  className="mt-10 flex w-28 place-content-center rounded-full bg-green-500 py-2.5 px-5 font-bold text-white "
+                >
+                  Sklep
+                </motion.div>
+              </NextLink>
+            </SectionText>
+          </SectionContainer>
         </main>
       </div>
       <footer className="v-max flex items-center justify-center bg-neutral-800 py-6 text-3xl text-neutral-200">
-        Footer
+        Hack Yeah! 2022
       </footer>
     </div>
   );

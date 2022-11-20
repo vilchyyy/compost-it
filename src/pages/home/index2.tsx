@@ -2,10 +2,10 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
-import Chat from "../components/Chat";
+import Chat from "../../components/Chat";
 import React, { useState } from "react";
 
-import { trpc } from "../utils/trpc";
+import { trpc } from "../../utils/trpc";
 
 // import  Input  from "../components/Input.tsx";
 
