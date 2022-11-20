@@ -19,7 +19,7 @@ export const SectionContainer = ({
     }
   }, [isInView]);
   return (
-    <div className={`mt-2 min-h-screen p-12 section${id}`} ref={ref}>
+    <div className={`mt-2 min-h-[101vh] p-12 section${id}`} ref={ref}>
       {children}
     </div>
   );
