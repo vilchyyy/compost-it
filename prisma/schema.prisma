@@ -67,6 +67,8 @@ model Chat {
 
 model Listing {
   id         String   @id @default(cuid())
+  name      String    
+  description String
   price      Decimal
   weight     String
   active     Boolean

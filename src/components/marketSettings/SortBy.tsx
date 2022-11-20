@@ -8,7 +8,7 @@ export const SortBy = ({ setSort }: sortByProps) => {
   const ref = useRef(null);
   return (
     <>
-      <div className="relative mt-20 w-40 rounded border border-gray-300 py-1 px-4">
+      <div className="relative my-10 w-40 rounded border border-gray-300 py-1 px-4 md:mt-20">
         <input
           type="checkbox"
           id="sortbox"
