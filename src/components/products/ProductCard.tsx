@@ -1,5 +1,6 @@
 import { Decimal } from "@prisma/client/runtime";
 import Image from "next/image";
+import Link from "next/link";
 interface productProps {
   image: string;
   name: string;
@@ -41,12 +42,12 @@ export function ProductCard({
         </div>
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold text-gray-900">{price}</span>
-          <a
-            href="#"
+          <Link
+            href={`${id}`}
             className="rounded-lg bg-blue-700 px-5 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Sprawdź
-          </a>
+          </Link>
         </div>
       </div>
     </div>
