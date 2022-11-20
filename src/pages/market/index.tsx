@@ -1,14 +1,19 @@
 import { ProductListing } from "../../components/products/ProductListing";
 import Navbar from "../../components/Navbar";
 import { ProductCard } from "../../components/products/ProductCard";
+import { SortBy } from "../../components/marketSettings/SortBy";
+import { useState } from "react";
 
 export default function Market() {
+  const [sort, setSort] = useState("newest");
   return (
     <div className="">
       <Navbar />
       <div className="flex">
         <div className="min-w-min border-r-2 border-neutral-200 shadow-lg shadow-neutral-200">
-          <div className="w-64"></div>
+          <div className="flex w-64 place-content-center">
+            <SortBy setSort={setSort} />
+          </div>
         </div>
         <div className="flex grow flex-wrap place-content-center">
           <ProductCard
