@@ -2,11 +2,22 @@ import { ProductListing } from "../../components/products/ProductListing";
 import Navbar from "../../components/Navbar";
 import { ProductCard } from "../../components/products/ProductCard";
 import { SortBy } from "../../components/marketSettings/SortBy";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import Chat from "../../components/Chat"
+
 
 export default function Market() {
   const [sort, setSort] = useState("newest");
+  const { data: sessionData } = useSession();
+  useEffect(() => {
+    if (sessionData?.user?.name !== null) {
+      //  router.push('/home')
+    }
+  }, []);
+
   return (
+    <>
     <div className="">
       <Navbar />
       <div className="md:flex">
@@ -59,5 +70,8 @@ export default function Market() {
         </div>
       </div>
     </div>
+    <div className="fixed bottom-0 right-0 w-4/12 float-right"><Chat username={sessionData?.user?.name}/></div>
+    </>
+    
   );
 }
