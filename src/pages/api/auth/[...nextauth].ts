@@ -19,6 +19,16 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+    async signIn({ user, account, profile, email, credentials }) {
+      console.log(user, account, profile, email, credentials)
+      return true
+    },
+    async redirect({ url, baseUrl }) {
+      return baseUrl
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      return token
+    }
   },
   
   // Configure one or more authentication providers
@@ -37,7 +47,7 @@ export const authOptions: NextAuthOptions = {
     }),
     // ...add more providers here
   ],
-  
+
   
 };
 
