@@ -3,9 +3,12 @@ import Navbar from "../../components/Navbar";
 import { ProductCard } from "../../components/products/ProductCard";
 import { SortBy } from "../../components/marketSettings/SortBy";
 import { useState } from "react";
+import { trpc } from "../../utils/trpc";
 
 export default function Market() {
   const [sort, setSort] = useState("newest");
+  const { data: listingsData } = trpc.listing.getAllListings.useQuery(undefined)
+
   return (
     <div className="">
       <Navbar />
@@ -16,46 +19,13 @@ export default function Market() {
           </div>
         </div>
         <div className="flex grow flex-wrap place-content-center">
-          <ProductCard
-            image="/coompost.png"
-            name="Kompost świeży świeży 5 świeży 5 świeży 5 5kg"
-            price="12.00zl"
-            seller="Radzisklep"
-            city="J-Bie"
-            weight="5kg"
-          />
-          <ProductCard
-            image="/coompost.png"
-            name="Kompost"
-            price="12.00zl"
-            seller="Radzisklep"
-            city="J-Bie"
-            weight="5kg"
-          />
-          <ProductCard
-            image="/coompost.png"
-            name="aaa"
-            price="12.00zl"
-            seller="Radzisklep"
-            city="J-Bie"
-            weight="5kg"
-          />
-          <ProductCard
-            image="/coompost.png"
-            name="aaa"
-            price="12.00zl"
-            seller="Radzisklep"
-            city="J-Bie"
-            weight="5kg"
-          />
-          <ProductCard
-            image="/coompost.png"
-            name="aaa"
-            price="12.00zl"
-            seller="Radzisklep"
-            city="J-Bie"
-            weight="5kg"
-          />
+          {
+            listingsData?.map(listing => {
+              return (
+                <ProductCard key={listing.id} id={listing.id} city={listing.owner.city??""} image="/coompost.png" name={listing.name} price={ String(listing.price) } weight={listing.weight} seller={listing.owner.name??""}/>
+              )
+            })
+          }
         </div>
       </div>
     </div>

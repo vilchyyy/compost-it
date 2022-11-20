@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { validationSchema } from "../../../pages/listing/new";
 import { validationSchemaEdit } from "../../../pages/listing/edit";
-import { router, protectedProcedure } from "../trpc";
+import { router, protectedProcedure, publicProcedure } from "../trpc";
 
 
 export const listingRouter = router({
@@ -18,6 +18,13 @@ export const listingRouter = router({
     }),
   getSelfListings: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.listing.findMany({where: {id: ctx.session.user.id}})
+  }),
+  getAllListings: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.listing.findMany({
+      include: {
+        owner: true,
+      }
+    })
   })
 //     editListing: protectedProcedure
 //         .input(validationSchema)

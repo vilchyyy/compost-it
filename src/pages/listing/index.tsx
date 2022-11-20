@@ -11,7 +11,7 @@ export default function Index(){
         <div className="ml-64 p-6 flex flex-col">
             {
                 listingsData?.map((listing: any, id: number) => (
-                    <ProductCard key={id} image={"balls"} price={listing.price} weight={listing.weight} city={listing.name} seller={listing.userId} name={listing.name} />
+                    <ProductCard key={id} id={listing.id} image={"balls"} price={listing.price} weight={listing.weight} city={listing.name} seller={listing.userId} name={listing.name} />
                 ))
             }
         </div>

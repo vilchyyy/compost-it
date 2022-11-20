@@ -1,3 +1,4 @@
+import { Decimal } from "@prisma/client/runtime";
 import Image from "next/image";
 interface productProps {
   image: string;
@@ -6,6 +7,7 @@ interface productProps {
   weight: string;
   seller: string;
   city: string;
+  id: string;
 }
 export function ProductCard({
   image,
@@ -14,6 +16,7 @@ export function ProductCard({
   weight,
   seller,
   city,
+  id,
 }: productProps) {
   return (
     <div className=" m-2 flex w-64 flex-col items-center rounded-lg border-2 bg-neutral-100 shadow-md">
