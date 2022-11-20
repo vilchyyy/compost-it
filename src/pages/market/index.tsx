@@ -3,14 +3,17 @@ import Navbar from "../../components/Navbar";
 import { ProductCard } from "../../components/products/ProductCard";
 import { SortBy } from "../../components/marketSettings/SortBy";
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import { trpc } from "../../utils/trpc";
 import Chat from "../../components/Chat"
-import { useSession } from "next-auth/react";
+
 
 export default function Market() {
   const [sort, setSort] = useState("priceBot");
   const [sortedProducts, setSortedProducts] = useState<any>([]);
+
   const {data: sessionData} = useSession();
+
   const { data: listingsData } =
     trpc.listing.getAllListings.useQuery(undefined);
   useEffect(() => {

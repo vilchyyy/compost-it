@@ -44,6 +44,13 @@ const Index: React.FC = () => {
   const { data: sessionData } = useSession();
   const router = useRouter();
 
+  useEffect(() => {
+    if (sessionData?.user?.name !== null) {
+      //router.push('/home')
+    }
+  }, []);
+
+
   const mutation = trpc.register.fillMissingData.useMutation();
 
   const {
