@@ -6,10 +6,12 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db/client";
 import EmailProvider from "next-auth/providers/email";
+import { signIn } from "next-auth/react/index.js";
 
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
+
   callbacks: {
     session({ session, user }) {
       if (session.user) {

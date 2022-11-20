@@ -66,9 +66,6 @@ const Settings: React.FC = () => {
   });
 
   useEffect(() => {
-    if (sessionData?.user?.name === null) {
-      router.push("/home");
-    }
     reset({
       name: userData?.name !== null ? userData?.name : "",
       lastName: userData?.lastName ? userData?.lastName : "",

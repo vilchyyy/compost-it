@@ -43,11 +43,6 @@ function useZodForm<TSchema extends z.ZodType>(
 const Index: React.FC = () => {
   const { data: sessionData } = useSession();
   const router = useRouter();
-  useEffect(() => {
-    if (sessionData?.user?.name !== null) {
-      router.push('/home')
-    }
-  }, []);
 
   const mutation = trpc.register.fillMissingData.useMutation();
 
@@ -74,7 +69,7 @@ const Index: React.FC = () => {
           onSubmit={handleSubmit(async (values) => {
             mutation.mutate(values);
             reset();
-            //router.push('/home')
+            router.push('/market')
           })}
           className="flex flex-col flex-wrap p-4"
         >
