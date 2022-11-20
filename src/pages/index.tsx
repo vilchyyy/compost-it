@@ -5,7 +5,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Chat from "../components/Chat";
 import React, { useState } from "react";
 
-
 import { trpc } from "../utils/trpc";
 
 // import  Input  from "../components/Input.tsx";
@@ -17,24 +16,23 @@ import { ListBucketsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 
 const credentials = {
   accessKeyId: "LfTlPaILdwOGcyyH",
-  secretAccessKey: "H8vEZ8zEA633ZjtkjO1jg7YG9dS3SrjJUHmId46J"
+  secretAccessKey: "H8vEZ8zEA633ZjtkjO1jg7YG9dS3SrjJUHmId46J",
 };
 
 const s3Client = new S3Client({
   endpoint: "https://s3.tebi.io",
   credentials: credentials,
-  region: "global"
+  region: "global",
 });
 
 const Home: NextPage = () => {
-  const [fileName, setFileName] = useState("")
-  const [file, setFile] = useState<any>()
+  const [fileName, setFileName] = useState("");
+  const [file, setFile] = useState<any>();
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
-  
-console.log(credentials)
 
-// Create an S3 service client object.
+  console.log(credentials);
 
+  // Create an S3 service client object.
 
   return (
     <>
@@ -46,25 +44,29 @@ console.log(credentials)
 
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         {/* <Input label="Testing" /> */}
-        <form onSubmit={async (e) => {
-          e.preventDefault()
-          // Upload a file
-          const upload_data = await s3Client.send(
-            new PutObjectCommand({
-            Bucket: "compostovnik",
-            Key: file.name,
-            Body: file
-            })
-);
-console.log(upload_data);
-        }}>
-          <input type="file" onChange={(e) => {
-            if (!e.target.files) return;
-            setFile(e.target.files[0])
-            }}/>
-            <button type="submit"> aaaa</button>
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            // Upload a file
+            const upload_data = await s3Client.send(
+              new PutObjectCommand({
+                Bucket: "compostovnik",
+                Key: file.name,
+                Body: file,
+              })
+            );
+            console.log(upload_data);
+          }}
+        >
+          <input
+            type="file"
+            onChange={(e) => {
+              if (!e.target.files) return;
+              setFile(e.target.files[0]);
+            }}
+          />
+          <button type="submit"> aaaa</button>
         </form>
-        
 
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
@@ -127,14 +129,14 @@ const AuthShowcase: React.FC = () => {
       <p>{sessionData ? userData?.id : "balls"}</p>
 
       <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
+        {sessionData && <span>Zalogowano jako {sessionData.user?.name}</span>}
         {secretMessage && <span> - {secretMessage}</span>}
       </p>
       <button
         className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
         onClick={sessionData ? () => signOut() : () => signIn()}
       >
-        {sessionData ? "Sign out" : "Sign in"}
+        {sessionData ? "Sign out" : "Zaloguj się"}
       </button>
     </div>
   );
