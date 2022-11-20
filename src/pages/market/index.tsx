@@ -2,8 +2,9 @@ import { ProductListing } from "../../components/products/ProductListing";
 import Navbar from "../../components/Navbar";
 import { ProductCard } from "../../components/products/ProductCard";
 import { SortBy } from "../../components/marketSettings/SortBy";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { trpc } from "../../utils/trpc";
+import Chat from "../../components/Chat"
 
 export default function Market() {
   const [sort, setSort] = useState("priceBot");
@@ -41,6 +42,7 @@ export default function Market() {
   console.log(sortedProducts, listingsData);
 
   return (
+  <>
     <div className="h-full">
       <Navbar />
       <div className="md:flex">
@@ -67,5 +69,8 @@ export default function Market() {
         </div>
       </div>
     </div>
+    <div className="fixed bottom-0 right-0 w-4/12 float-right"><Chat username={sessionData?.user?.name}/></div>
+    </>
+    
   );
 }

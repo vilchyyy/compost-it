@@ -6,8 +6,13 @@ import { SectionContainer } from "../components/section/sectionContainer";
 import { SectionHeader } from "../components/section/sectionHeader";
 import { SectionText } from "../components/section/sectionText";
 import NextLink from "next/link";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+
 
 export default function Home() {
+  const session = useSession();
+  const router = useRouter();
   const [activeSection, setActiveSection] = useState<number>(0);
   console.log(ScrollElement);
   const listElement = {
@@ -48,7 +53,11 @@ export default function Home() {
       },
     },
   };
-
+  useEffect(()=> {
+    if (session.data?.user && !session.data.user.name)  {
+      router.push('/register')
+    }
+  },[])
   useEffect(() => {
     console.log(activeSection);
   }, [activeSection]);
@@ -60,6 +69,7 @@ export default function Home() {
     "Co nie można",
     "Skąd wziąć",
   ];
+
   return (
     <div>
       <div className="min-v-screen flex min-h-screen items-center justify-center bg-[url('https://images.unsplash.com/photo-1601788505117-18947ac4f2e6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80')] bg-cover bg-no-repeat">
