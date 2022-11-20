@@ -74,7 +74,7 @@ export default function Market() {
         </div>
       </div>
     </div>
-    <div className="fixed bottom-0 right-0 w-4/12 float-right"><Chat username={sessionData?.user?.name?? 'balls'}/></div>
+    <div className="fixed bottom-0 right-0 w-4/12 float-right">(sessionData && <Chat username={sessionData?.user?.name?? 'guest'}/>)</div>
     </>
     
   );
