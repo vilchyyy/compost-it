@@ -10,9 +10,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse)=>{
 
   NextCors(req, res, {
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-      origin: '*',
+      origin: false,
   })
- req.headers["access-control-allow-origin"]="*"
+
 
 return createNextApiHandler({
   router: appRouter,
