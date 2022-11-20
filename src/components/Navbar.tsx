@@ -35,11 +35,6 @@ export default function Navbar() {
                   Zaloguj
                 </div>
               </Link>
-                <Link href={"/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fregister"}>
-                <div className="mr-4 rounded-full bg-gray-100 py-2 px-4 font-medium text-gray-800">
-                  Zarejestruj
-                </div>
-              </Link>
               </>
             )}
           </div>
