@@ -4,7 +4,7 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Chat from "../components/Chat.tsx";
 
-import ProductCard from "../components/ProductCard.jsx";
+import ProductCard from "../components/products/ProductListing.jsx";
 
 import { trpc } from "../utils/trpc";
 
@@ -83,8 +83,7 @@ const AuthShowcase: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       {sessionData && <Chat username={sessionData?.user?.name}></Chat>}
-      <p>{sessionData ? userData?.id: "balls"}</p>
-
+      <p>{sessionData ? userData?.id : "balls"}</p>
 
       <p className="text-center text-2xl text-white">
         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
