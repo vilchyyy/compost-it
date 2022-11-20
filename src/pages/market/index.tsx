@@ -9,9 +9,9 @@ export default function Market() {
   return (
     <div className="">
       <Navbar />
-      <div className="flex">
+      <div className="md:flex">
         <div className="min-w-min border-r-2 border-neutral-200 shadow-lg shadow-neutral-200">
-          <div className="flex w-64 place-content-center">
+          <div className="flex w-full place-content-center md:w-64">
             <SortBy setSort={setSort} />
           </div>
         </div>
