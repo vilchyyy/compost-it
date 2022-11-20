@@ -95,7 +95,7 @@ export default function Home() {
           >
             {navItems.map((element, id) => {
               return (
-                <Link to={`section${id}`} smooth={true} duration={700}>
+                <Link key={element} to={`section${id}`} smooth={true} duration={700}>
                   <motion.li
                     key={element}
                     className="relative rounded p-0 text-2xl font-medium"

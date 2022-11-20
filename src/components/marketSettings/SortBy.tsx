@@ -5,7 +5,7 @@ interface sortByProps {
 }
 
 export const SortBy = ({ setSort }: sortByProps) => {
-  const ref = useRef(null);
+  const ref = useRef<any>();
   return (
     <>
       <div className="relative my-10 w-40 rounded border border-gray-300 py-1 px-4 md:mt-20">
@@ -44,7 +44,7 @@ export const SortBy = ({ setSort }: sortByProps) => {
             <li>
               <p
                 onClick={() => {
-                  ref.current.checked = false;
+                  if(ref){ref.current.checked = false}
                   setSort("newest");
                 }}
                 className="block cursor-pointer px-3 py-2 hover:bg-gray-200"

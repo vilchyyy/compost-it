@@ -47,10 +47,10 @@ export default function Chat({ username }:props){
     }, [chats])
     const handleSubmit = async(e: any) => {
         e.preventDefault()
-        let date = new Date()
-        let hour = date.getHours()>9?date.getHours().toString():"0"+date.getHours().toString()
-        let minute = date.getMinutes()>9?date.getMinutes().toString():"0"+date.getMinutes().toString()
-        let time = hour+":"+minute
+        const date = new Date()
+        const hour = date.getHours()>9?date.getHours().toString():"0"+date.getHours().toString()
+        const minute = date.getMinutes()>9?date.getMinutes().toString():"0"+date.getMinutes().toString()
+        const time = hour+":"+minute
         await axios.post("/api/pusher", {
             message, 
             username,

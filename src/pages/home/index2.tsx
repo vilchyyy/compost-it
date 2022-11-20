@@ -16,7 +16,7 @@ const s3Client = new S3Client({
   region: "global",
 });
 
-export default function chuj(){
+export default function Chuj(){
 
   const [file, setFile] = useState<File>()
   const src = "https://compostovnik.s3.tebi.io/tapetaujkofdik.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=LfTlPaILdwOGcyyH%2F20221120%2Fglobal%2Fs3%2Faws4_request&X-Amz-Date=20221120T060806Z&X-Amz-Expires=3600&X-Amz-Signature=e026507d49f798ae4ee9fed2acf81e9eeca3a14dc1458a98aa12b7f957ea6a50&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22DICK_DOWNLOAD.png%22&x-id=GetObject"

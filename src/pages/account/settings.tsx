@@ -40,7 +40,7 @@ function useZodForm<TSchema extends z.ZodType>(
   return form;
 }
 
-const settings: React.FC = () => {
+const Settings: React.FC = () => {
   const { data: sessionData } = useSession();
   const router = useRouter();
   const { data: userData } = trpc.auth.getCurrUser.useQuery(undefined, {
@@ -141,4 +141,4 @@ const settings: React.FC = () => {
   );
 };
 
-export default settings;
+export default Settings;
