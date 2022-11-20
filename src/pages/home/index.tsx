@@ -242,7 +242,7 @@ export default function Home() {
         </main>
       </div>
       <footer className="v-max flex items-center justify-center bg-neutral-800 py-6 text-3xl text-neutral-200">
-        Footer
+        Hack Yeah! 2022
       </footer>
     </div>
   );
