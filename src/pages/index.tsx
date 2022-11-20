@@ -85,8 +85,8 @@ export default function Home() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="flex flex-col items-center justify-center"
         >
-          <h1 className="mb-10 select-none text-6xl font-bold text-neutral-300  md:text-9xl">
-            Compost it
+          <h1 className="mb-10 select-none text-6xl font-bold text-green-700 shadow-2xl shadow-inner md:text-9xl">
+            Kompostuj.to
           </h1>
           <motion.div
             animate={{ translateY: [0, 10, 0] }}
