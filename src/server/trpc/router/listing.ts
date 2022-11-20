@@ -26,8 +26,8 @@ export const listingRouter = router({
       }
     })
   }),
-  getOneById: publicProcedure.input(z.object({ id: z.string()  })).query(({ input, ctx }) => {
-    return ctx.prisma.listing.findFirstOrThrow({ where: {id: input?.id} })
+  getOneById: publicProcedure.input(z.object({ id: z.string() })).query(({ input, ctx }) => {
+    return ctx.prisma.listing.findFirstOrThrow({ where: {id: input?.id}, include: { owner: true } })
   })
 //     editListing: protectedProcedure
 //         .input(validationSchema)

@@ -7,10 +7,8 @@ export default function Index(){
 
     const router = useRouter()
     const { id } = router.query
+    const { data: listingData } = trpc.listing.getOneById.useQuery({ id: String(id) }) 
 
-    if (id) {
-        const { data: listingData } = trpc.listing.getOneById.useQuery({ id: id }) 
-    }
 
     
 
