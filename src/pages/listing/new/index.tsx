@@ -8,26 +8,23 @@ import React, { useEffect } from "react";
 import Input from "../../../components/Input";
 
 export const validationSchema = z.object({
-  name : z
+  name: z
     .string()
-    .min(1, { message: "Pole nie może być puste."})
-    .max(30, { message: "Pole może mieć maksymalnie 30 znaków"}),
-  description : z
+    .min(1, { message: "Pole nie może być puste." })
+    .max(30, { message: "Pole może mieć maksymalnie 30 znaków" }),
+  description: z
     .string()
-    .min(1, { message: "Pole nie może być puste."})
-    .max(200, { message: "Pole może mieć maksymalnie 200 znaków"}),
-  price: z
-    .string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
-        message: "Proszę podać liczbę"
-      }),
+    .min(1, { message: "Pole nie może być puste." })
+    .max(200, { message: "Pole może mieć maksymalnie 200 znaków" }),
+  price: z.string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
+    message: "Proszę podać liczbę",
+  }),
   weight: z
     .string()
     .min(1, { message: "Pole nie może być puste." })
     .max(30, { message: "Pole może mieć maksymalnie 30 znaków" }),
-  active: z
-    .boolean(),
+  active: z.boolean(),
 });
-
 
 function useZodForm<TSchema extends z.ZodType>(
   props: Omit<UseFormProps<TSchema["_input"]>, "resolver"> & {
@@ -51,7 +48,7 @@ const Index: React.FC = () => {
     }
   }, []);
 
-  const mutation = trpc.listing.addListing.useMutation()
+  const mutation = trpc.listing.addListing.useMutation();
 
   const {
     register,
@@ -61,8 +58,8 @@ const Index: React.FC = () => {
   } = useZodForm({
     schema: validationSchema,
     defaultValues: {
-      name: '',
-      description: '',
+      name: "",
+      description: "",
       price: "",
       weight: "",
       active: true,
@@ -81,7 +78,7 @@ const Index: React.FC = () => {
           className="flex flex-col flex-wrap p-4"
         >
           <div className="relative w-full">
-          <input
+            <input
               className="mb-8 w-full rounded-md border-2 p-2 indent-2 focus:outline-gray-500"
               {...register("name")}
               placeholder="Nazwa"
@@ -92,7 +89,7 @@ const Index: React.FC = () => {
               placeholder="Opis"
             />
             <input
-            type="number"
+              type="number"
               className="mb-8 w-full rounded-md border-2 p-2 indent-2 focus:outline-gray-500"
               {...register("price")}
               placeholder="Cena"
@@ -113,15 +110,13 @@ const Index: React.FC = () => {
               {errors.weight && errors.weight.message}
             </p>
           </div>
-          <div className="relative w-full">
-            Aktywne: 
+          <div className=" mb-4 ml-1 flex w-full items-center">
+            Aktywne:
             <input
-                type="checkbox"
-              className="mb-8 w-full rounded-md border-2 p-2 indent-2 focus:outline-gray-500"
+              type="checkbox"
+              className="ml-2 mt-0.5 scale-125  rounded-md border-2   focus:outline-gray-500"
               {...register("active")}
             />
-            <p className="absolute bottom-0 text-red-600">
-            </p>
           </div>
 
           <button
